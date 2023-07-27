@@ -5,8 +5,20 @@ import { serializedToShips } from "./permalink"
 
 export async function serializedToXWS(faction: string, serialized: string, squadName: string, obstacles: string, originalPath: string): Promise<XWSSquadron> {
 
+    const vendor = <Vendor>{
+        builder: 'squad2xws',
+        builder_url: 'http://squad2xws.objectivecat.com/',
+        link: "https://yasb.app/?" + originalPath
+    }
+
+    const vendorMap: Map<string, Vendor> = new Map()
+    vendorMap.set("squad2xws", vendor)
+    
     const xwsSquadron = JSON.parse(serialtoxws(serialized));
 
+    xwsSquadron.vendor = vendormap;
+    xwsSquadron.version = '2.7.0';
+    
     return xwsSquadron;
 }
 
